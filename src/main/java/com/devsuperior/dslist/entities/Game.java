@@ -20,16 +20,20 @@ public class Game {
 	private Long id; 
 	
 	private String title;
+	private Double score;
 	
 	@Column(name = "game_year") //PARA DIFERENCIAR O NOME DO ATRIBUTO year (year É UMA PALAVRA RESERVADA NO SQL).
 	private Integer year;
 	
 	private String genre;
-	private String platform;
+	private String platforms;
 	private String imgUrl;
+	
+	@Column(columnDefinition = "TEXT") //IRÁ PERMITIR MAIS DE 255 CARACTERES NO INSERT DO BD.
 	private String shortDescription;
+	
+	@Column(columnDefinition = "TEXT") //IRÁ PERMITIR MAIS DE 255 CARACTERES NO INSERT DO BD.
 	private String longDescription;
-	private Double score;
 	
 	//CRIAÇÃO DO CONSTRUTOR SEM ARGUMENTOS.
 	public Game() {
@@ -37,17 +41,17 @@ public class Game {
 	}
 
 	//CRIAÇÃO DO CONSTRUTOR COM ARGUMENTOS.
-	public Game(Long id, String title, Integer year, String genre, String platform, String imgUrl,
-			String shortDescription, String longDescription, Double score) {
+	public Game(Long id, String title, Double score, Integer year, String genre, String platforms, String imgUrl,
+			String shortDescription, String longDescription) {
 		this.id = id;
 		this.title = title;
+		this.score = score;
 		this.year = year;
 		this.genre = genre;
-		this.platform = platform;
+		this.platforms = platforms;
 		this.imgUrl = imgUrl;
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;
-		this.score = score;
 	}
 
 	//CRIAÇÃO DOS GETTERS E SETTERS.
@@ -83,12 +87,12 @@ public class Game {
 		this.genre = genre;
 	}
 
-	public String getPlatform() {
-		return platform;
+	public String getPlatforms() {
+		return platforms;
 	}
 
-	public void setPlatform(String platform) {
-		this.platform = platform;
+	public void setPlatform(String platforms) {
+		this.platforms = platforms;
 	}
 
 	public String getImgUrl() {
