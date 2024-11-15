@@ -17,7 +17,7 @@ public class BelongingPk {
 	private Game game; //INSTANCIANDO UM GAME PARA CRIAR UMA REFERÊNCIA A ESTA CLASSE.
 	
 	@ManyToOne //ANOTAÇÃO MUITOS PRA UM.
-	@JoinColumn(name = "gameList_id") //CONFIGURANDO O NOME DA CHAVE ESTRANGEIRA.
+	@JoinColumn(name = "game_list_id") //CONFIGURANDO O NOME DA CHAVE ESTRANGEIRA.
 	private GameList gameList; //INSTANCIANDO UM GameList PARA CRIAR UMA REFERÊNCIA A ESTA CLASSE.
 	
 	//CRIAÇÃO DO CONSTRUTOR PADRÃO VAZIO.
@@ -66,8 +66,5 @@ public class BelongingPk {
 		BelongingPk other = (BelongingPk) obj;
 		return Objects.equals(game, other.game) && Objects.equals(gameList, other.gameList);
 	}
-	
-	
-	
 	
 }
