@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.dslist.dto.GameDTO;
 import com.devsuperior.dslist.dto.GameMinDTO;
 import com.devsuperior.dslist.entities.Game;
+import com.devsuperior.dslist.projections.GameMinProjection;
 import com.devsuperior.dslist.repositories.GameRepository;
 
 @Service //IRÁ REGISTRAR ESTA CLASSE COMO UM COMPONENTE DO SISTEMA.
@@ -37,6 +38,18 @@ public class GameService {
 	public List<GameMinDTO> findAll(){ //IRÁ BUSCAR TODOS OS GAMES.
 		
 		List<Game> result = gameRepository.findAll(); //VARIÁVEL result ARMAZENARÁ TODOS OS RESULTADOS DO gameRepository.
+		List<GameMinDTO> listDto = result.stream().map(x -> new GameMinDTO(x)).toList(); /*O stream PERMITE FAZER OPERAÇÕES
+		COM SEQUÊNCIAS DE DADOS, 
+		O map TRANSFORMA OBJETOS DE UMA COISA PARA OUTRA (TODOS OBJETOS "x" ORIGINAL QUE ERAM GAMES SERÃO TRANFORMADOS EM 
+		new GameMinDTO PASSANDO O "x" COMO ARGUMENTO). E PARA VOLTAR O STREAM PARA UMA LISTA USA-SE O ".toList().*/
+		return listDto;
+	}
+	
+	//CRIAÇÃO DO MÉTODO PARA DEVOLVER UMA LISTA DO TIPO GameMinDTO.
+	@Transactional(readOnly = true) //GARANTINDO QUE O BD NÃO IRÁ PARAR ESPERANDO UMA ESCRITA.
+	public List<GameMinDTO> findByList(Long listId){ //IRÁ BUSCAR O Id DA LISTA E RETORNAR OS GAMES DESTA LISTA.
+		
+		List<GameMinProjection> result = gameRepository.searchByList(listId); //VARIÁVEL result ARMAZENARÁ TODOS OS RESULTADOS DO gameRepository.
 		List<GameMinDTO> listDto = result.stream().map(x -> new GameMinDTO(x)).toList(); /*O stream PERMITE FAZER OPERAÇÕES
 		COM SEQUÊNCIAS DE DADOS, 
 		O map TRANSFORMA OBJETOS DE UMA COISA PARA OUTRA (TODOS OBJETOS "x" ORIGINAL QUE ERAM GAMES SERÃO TRANFORMADOS EM 
